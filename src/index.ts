@@ -229,7 +229,7 @@ app.get("/api/v1/cart", userMiddleware, async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve cart.", details: error });
   }
 });
-  
+
 // Start Server
 app.listen(3000, () => {
   console.log(`Server running on port 3000 http://localhost:3000`);
