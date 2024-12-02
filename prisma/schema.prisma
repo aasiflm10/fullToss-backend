@@ -20,6 +20,7 @@ model User {
   password    String
   assignedTeam String
   createdAt   DateTime @default(now())
+  carts       Cart[]   
 }
 
 model Product {
@@ -29,4 +30,17 @@ model Product {
   price       Float
   imageUrl    String
   createdAt   DateTime @default(now())
+  carts       Cart[]
+}
+
+model Cart {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId]) // Prevent duplicate entries for the same product in a user's cart
 }

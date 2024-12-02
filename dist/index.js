@@ -45,9 +45,11 @@ app.post("/api/v1/register", (req, res) => __awaiter(void 0, void 0, void 0, fun
         const user = yield prisma.user.create({
             data: { name, email, password: hashedPassword, assignedTeam },
         });
+        const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, config_1.JWT_SECRET);
         res.status(201).json({
-            message: "User registered successfully!",
-            assignedTeam: user.assignedTeam,
+            message: "Login successful!",
+            user: { id: user.id, name: user.name, assignedTeam: user.assignedTeam },
+            token: token,
         });
     }
     catch (error) {
@@ -128,6 +130,86 @@ app.get("/api/v1/products", middleware_1.userMiddleware, (req, res) => __awaiter
     catch (e) {
         console.log(e);
         res.status(500).json({ message: "Some error occured ", error: e });
+    }
+}));
+// Add to Cart
+app.post("/api/v1/cart", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { productId, quantity } = req.body;
+    productId = Number(productId);
+    quantity = Number(quantity);
+    if (!productId ||
+        !quantity ||
+        isNaN(productId) ||
+        isNaN(quantity) ||
+        quantity < 1) {
+        res.status(400).json({ error: "Invalid product or quantity." });
+        return;
+    }
+    try {
+        const userId = req.userId; // Assuming `userMiddleware` sets `req.user`
+        if (!userId) {
+            res.status(401).json({ error: "Unauthorized." });
+            return;
+        }
+        // Check if the product exists
+        const product = yield prisma.product.findUnique({
+            where: { id: productId },
+        });
+        if (!product) {
+            res.status(404).json({ error: "Product not found." });
+            return;
+        }
+        // Check if the product is already in the user's cart
+        const existingCartItem = yield prisma.cart.findUnique({
+            where: { userId_productId: { userId, productId } },
+        });
+        if (existingCartItem) {
+            // Update the quantity if the product is already in the cart
+            const updatedCartItem = yield prisma.cart.update({
+                where: { id: existingCartItem.id },
+                data: { quantity: existingCartItem.quantity + quantity },
+            });
+            res
+                .status(200)
+                .json({
+                message: "Cart updated successfully.",
+                cartItem: updatedCartItem,
+            });
+        }
+        else {
+            // Add a new product to the cart
+            const cartItem = yield prisma.cart.create({
+                data: { userId, productId, quantity },
+            });
+            res
+                .status(201)
+                .json({ message: "Product added to cart successfully.", cartItem });
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to add to cart.", details: error });
+    }
+}));
+// Get Cart Items
+app.get("/api/v1/cart", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.userId;
+        if (!userId) {
+            res.status(401).json({ error: "Unauthorized." });
+            return;
+        }
+        const cartItems = yield prisma.cart.findMany({
+            where: { userId },
+            include: { product: true }, // Include product details
+        });
+        res
+            .status(200)
+            .json({ message: "Cart retrieved successfully.", cartItems });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to retrieve cart.", details: error });
     }
 }));
 // Start Server

@@ -29,7 +29,7 @@ export function userMiddleware(
         message: "Invalid token format",
       });
       return;
-    }
+  }
 
     req.userId = (decoded as JwtPayload).id;
     next();
