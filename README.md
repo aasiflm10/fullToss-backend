@@ -49,3 +49,28 @@ Shop.io is a feature-rich e-commerce application developed as part of the FullTo
    ```bash
    git clone <repo-url>
    cd backend
+
+2. Install Dependencies : 
+   ```bash
+   npm install
+
+3. Set up .env file. See .env.example for reference.
+   - Add the Databse URL in the .env file :
+     ```bash
+        DATABASE_URL="Here_goes_your_postgreSQL Database URL"
+   - Use aiven.io or neon.tech for free PostgreSQL Database URL.
+
+4. Generate Prisma Client:  
+   ```bash
+   npx prisma generate
+
+5. Migrate the Database schema to your cloud database
+   ```bash
+   npx prisma migrate dev --name init
+
+6. Run your backend : 
+   ```bash
+   npm run dev
+
+Backend is now running at port 3000. http://localhost:3000
+
