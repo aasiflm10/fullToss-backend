@@ -79,28 +79,28 @@ Backend is now running at port 3000. http://localhost:3000
 
 ##Public Routes
 
-- GET /
+- GET / :
 Root endpoint to check if the backend is running.
 
--POST /api/v1/register
+- POST /api/v1/register : 
 User registration with name, email, password, and IPL team assignment.
 
--POST /api/v1/login
+- POST /api/v1/login :
 User login with email and password.
 
 
 ##Protected Routes (require userMiddleware authentication)
 
-- POST /api/v1/products
+- POST /api/v1/products :
 Add a new product to the catalog.
 
-- GET /api/v1/products
+- GET /api/v1/products :
 Retrieve all products.
 
-- POST /api/v1/cart
+- POST /api/v1/cart :
 Add a product to the user's cart or update its quantity if it already exists.
 
-- GET /api/v1/cart
+- GET /api/v1/cart :
 Retrieve all items in the user's cart with product details.
 
 
