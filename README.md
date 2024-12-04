@@ -42,7 +42,7 @@ Shop.io is a feature-rich e-commerce application developed as part of the FullTo
 ### Prerequisites
 - Node.js and npm installed
 - PostgreSQL database set up
-- Environment variables configured in `.env`
+- Environment variables configured in `.env` ( See Step 3 for reference )
 
 ### Backend Setup
 1. Clone the repository and navigate to the `backend` directory:  
