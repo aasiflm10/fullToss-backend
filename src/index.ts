@@ -20,7 +20,7 @@ const assignIplTeam = (): string => {
 
 // Root Endpoint
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "It is up and running" });
+  res.status(200).json({ message: "Backend is up and running" });
 });
 
 // User Registration
