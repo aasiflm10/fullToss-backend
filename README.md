@@ -85,6 +85,23 @@ Submitted by : Aasif Ali (aa6125405@gmail.com)
 Backend is now running at port 3000. http://localhost:3000
 
 
+## Populating the database with dummy data : 
+   
+   To populated the database with dummy data you can use /seed-products.js present in /src/seed/seed-products.js : 
+
+  - Run the following cmd to populate the db : 
+
+      ```bash 
+      node src/seed/seed-products.js 
+
+   If the above cmd does not work then: 
+   - Move to src/
+      ```bash
+      cd src/seed/
+   - Now run the node cmd to run the file : 
+      ```bash 
+      node seed-products.js 
+
 
 ## Public Routes
 
