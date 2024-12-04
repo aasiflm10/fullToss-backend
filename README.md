@@ -47,7 +47,7 @@ Shop.io is a feature-rich e-commerce application developed as part of the FullTo
 ### Backend Setup
 1. Clone the repository and navigate to the `backend` directory:  
    ```bash
-   git clone [<repo-url>](https://github.com/aasiflm10/fullToss-backend.git)
+   git clone https://github.com/aasiflm10/fullToss-backend.git
    cd fullToss-backend
 
 2. Install Dependencies : 
