@@ -10,6 +10,14 @@ Backend Deployed at : https://fulltoss-backend.onrender.com/
 
 Submitted by : Aasif Ali (aa6125405@gmail.com)
 
+## Test Credentials :
+
+- email : test@gmail.com
+
+- password : test
+
+
+
 
 ## Features
 
